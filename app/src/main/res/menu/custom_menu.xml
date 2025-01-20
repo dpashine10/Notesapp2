@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/logout"
+        android:title="Logout"
+        android:iconTint="@color/white"
+        android:visible="true"/>
+    <item android:id="@+id/update"
+        android:title="Sync to Cloud"
+        android:iconTint="@color/black"/>
+    <item android:title="Delete all files"
+        android:id="@+id/deleteall"/>
+</menu>

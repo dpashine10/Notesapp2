@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Notesapp2</string>
+    <string name="title_activity_createnote">createnote</string>
+    <string name="title_activity_individualnote">individualnote</string>
+    <string name="title_activity_adapter">adapter</string>
+    <string name="title_activity_notes_adapter">NotesAdapter</string>
+</resources>
