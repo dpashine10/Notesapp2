@@ -49,7 +49,7 @@ class individualnote : AppCompatActivity() {
             auth.currentUser // You might not need this line if you're not using Firebase Authentication here
         heading = findViewById(R.id.heading)
         mainbody = findViewById(R.id.write)
-        setTitle(heading.toString())
+        setTitle(heading.text.toString())
         dbHelper = NotesDbHelper(applicationContext, auth)
         noteId = intent.getStringExtra("NOTE_ID") ?: ""
         if (noteId.isNotBlank()) {
@@ -58,6 +58,12 @@ class individualnote : AppCompatActivity() {
             if (note != null) {
                 if (note.heading.isNotBlank() || note.heading.isNotBlank()) {
                     heading.setText(note.heading)
+                    mainbody.setText(note.body)
+                    setTitle(note.heading)
+                }
+                if (note.heading.isBlank() and note.body.isNotBlank()){
+                    val head = "Untitled"
+                    heading.setText(head)
                     mainbody.setText(note.body)
                     setTitle(note.heading)
                 }
@@ -84,7 +90,7 @@ class individualnote : AppCompatActivity() {
         })
     }
 
-    private fun deleteanote(noteId: Int) {
+    fun deleteanote(noteId: Int) {
         deleteNoteFromFirebase(noteId)
         val db = dbHelper.writableDatabase
         val whereClause = "${NoteContract.NoteEntry.COLUMN_NAME_ID} = ?"
@@ -131,20 +137,6 @@ class individualnote : AppCompatActivity() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        if (isNoteModified) {
-            saveNoteToDatabase()
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        if (isNoteModified) {
-            saveNoteToDatabase()
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menuforanote, menu)
         return true
@@ -186,8 +178,8 @@ class individualnote : AppCompatActivity() {
         }
         else {
             if (heading.text.isBlank() and mainbody.text.isBlank()) {
-                deleteanote(noteId.toInt())
-                Log.d("savenote", "An empty note was deleted")
+                //deleteanote(noteId.toInt())
+                Log.d("savenote", "An empty note was detected")
                 return
             }
             val db = dbHelper.writableDatabase

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -49,9 +50,9 @@ class mainpage : AppCompatActivity(),NoteAdapter.ItemClickListener {
             Log.d("mainpage", "Intent data: ${intent.extras}")
             startActivity(intent)
         }
-        noteAdapter = NoteAdapter(emptyList(),this) // Initialize with an empty list
+        noteAdapter = NoteAdapter(emptyList(),this,dbHelper)
         viewallnotes.adapter = noteAdapter
-        viewallnotes.layoutManager = LinearLayoutManager(this) // Set layout manager
+        viewallnotes.layoutManager = LinearLayoutManager(this)
         viewallnotes.setHasFixedSize(true)
 
         fetchNotesAndDisplay() // Fetch and display notes
